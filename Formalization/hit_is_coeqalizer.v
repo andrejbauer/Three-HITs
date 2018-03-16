@@ -1,4 +1,4 @@
-Require Import HoTT HoTT.HIT.Colimits HoTT.HIT.Colimits.Coequalizer.
+Require Import HoTT HoTT.Types.Record HoTT.HIT.Colimits HoTT.HIT.Colimits.Coequalizer.
 Require Import polynomial hit_structure.
 
 (* We show that a HIT is a coequalizer. *)
@@ -60,11 +60,19 @@ Proof.
           apply (q C false).
           exact (i; x).
         + intros p x u ; simpl.
-          refine (transport_const _ _ @ _).
-          refine (_ @ (qq C true false false (p;x))^).
+          simple refine (transport_const _ _ @ _).
+          simple refine (_ @ (qq C true false false (p;x))^).
           exact (qq C true false true (p;x)).
-      - simpl.
-        admit.
+      - { simple refine (path_cocone _ _).
+          intros [|].
+          - intros [p x].
+            admit.
+          - intros [p x].
+            admit.
+          - intros [|] [|] e ; try elim e.
+            intros [p x].
+            admit.
+        }
       - intros [f p].
         admit.
     }
